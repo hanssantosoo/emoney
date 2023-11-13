@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'HelloPay',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6200EE)),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'HelloPay.'),
@@ -26,7 +26,7 @@ class BalanceWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.deepPurple,
+        color: const Color(0xFF6200EE),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -36,7 +36,7 @@ class BalanceWidget extends StatelessWidget {
             'Balance',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 12, // Adjust the font size as needed
+              fontSize: 12,
             ),
           ),
           SizedBox(height: 4),
@@ -46,6 +46,7 @@ class BalanceWidget extends StatelessWidget {
               Icon(
                 Icons.account_balance_wallet,
                 color: Colors.white,
+                size: 24,
               ),
               SizedBox(width: 8),
               Text(
@@ -55,6 +56,58 @@ class BalanceWidget extends StatelessWidget {
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          // Icon buttons with text
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // Add your Top Up functionality here
+                    },
+                    icon: Column(
+                      children: [
+                        Icon(Icons.add, color: Colors.white, size: 24),
+                        Text('Top Up', style: TextStyle(color: Colors.white, fontSize: 12)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // Add your Transfer functionality here
+                    },
+                    icon: Column(
+                      children: [
+                        Icon(Icons.swap_horiz, color: Colors.white, size: 24),
+                        Text('Transfer', style: TextStyle(color: Colors.white, fontSize: 12)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // Add your History functionality here
+                    },
+                    icon: Column(
+                      children: [
+                        Icon(Icons.history, color: Colors.white, size: 24),
+                        Text('History', style: TextStyle(color: Colors.white, fontSize: 12)),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -106,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               widget.title,
               style: TextStyle(
-                color: Colors.deepPurple,
+                color: const Color(0xFF6200EE),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -115,27 +168,25 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 // Add your search functionality here
               },
-              icon: Icon(Icons.search, color: Colors.deepPurple),
+              icon: Icon(Icons.search, color: const Color(0xFF6200EE)),
             ),
             IconButton(
               onPressed: () {
                 // Add your message functionality here
               },
-              icon: Icon(Icons.message, color: Colors.deepPurple),
+              icon: Icon(Icons.message, color: const Color(0xFF6200EE)),
             ),
             IconButton(
               onPressed: () {
                 // Add your notification functionality here
               },
-              icon: Icon(Icons.notifications, color: Colors.deepPurple),
+              icon: Icon(Icons.notifications, color: const Color(0xFF6200EE)),
             ),
           ],
         ),
       ),
       body: Column(
         children: [
-          // Padding for separation
-          SizedBox(height: 16),
           // Balance Widget
           BalanceWidget(),
           // Main Content
@@ -164,8 +215,8 @@ class _MyHomePageState extends State<MyHomePage> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.add),
-              label: 'Deposit',
+              icon: Icon(Icons.payment), // Payment icon
+              label: 'Pay', // Changed text to Pay
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
@@ -173,14 +224,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.deepPurple,
+          selectedItemColor: const Color(0xFF6200EE),
           onTap: _onItemTapped,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Add',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.payment), // Payment icon
       ),
     );
   }
