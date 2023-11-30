@@ -43,3 +43,21 @@ class _LoginScreenState extends State<LoginScreen> {
       _spacing(30),
       signUpContainer
     ];
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SingleChildScrollView(
+        child: Column(
+          children: loginScreenContents,
+        ),
+        padding: EdgeInsets.all(45),
+      ),
+    );
+  }
+
+  void goToSignUpScreen() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+  }
+
+  
