@@ -278,7 +278,7 @@ class HomeDashboardScreenState extends State<HomeDashboardScreen> {
       )
     ];
 
-     List<Widget> homeScreenContents = <Widget>[
+    List<Widget> homeScreenContents = <Widget>[
       Stack(
         children: dashboardContents,
       ),
@@ -349,3 +349,84 @@ class HomeDashboardScreenState extends State<HomeDashboardScreen> {
               ))
         ]));
   }
+
+  Widget _buildTransactionActivities(BuildContext context) {
+    return ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        width: 0.8,
+                        color: const Color.fromARGB(129, 224, 224, 224)))),
+            child: Row(
+              children: [
+                Image.asset("assets/images/profile.png", height: 41, width: 41),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Request from ${data[index]['name']}",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Transaction ID: ${data[index]['transactionId']}",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: const Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Rp. ${data[index]['amount']}",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Status: ${data[index]['status']}",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: const Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "Today",
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "10:00 AM",
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          );
+        });
+  }
+}
