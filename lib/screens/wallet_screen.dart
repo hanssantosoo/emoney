@@ -193,3 +193,116 @@ Widget userInfo = Padding(
         myBankingCards,
       ],
     );
+
+    return Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => TabbedLayoutComponent()),
+                  (route) => false),
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              )),
+          title: Text("My Wallet", style: TextStyle(color: Colors.white)),
+          centerTitle: true,
+          actions: [
+            Builder(
+                builder: (context) => IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      FluentIcons.settings_28_regular,
+                      color: Colors.white,
+                    )))
+          ],
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        extendBodyBehindAppBar: true,
+        body: CustomScrollView(slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: walletScreenContents,
+          )
+        ]));
+  }
+
+  void goToAddCardScreen() =>
+      Navigator.push(context, SlideRightRoute(page: AddCardScreen()))
+          .then((value) {
+        setState(() {});
+      });
+
+  Widget _buildAvailableCards(
+      BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+    final List cardData = [
+      {'cardBrand': 'Master Card', 'cardNumber': '1234 5678 7777 1111'},
+      {'cardBrand': 'Master Card', 'cardNumber': '1234 5678 7777 1110'},
+      {'cardBrand': 'Master Card', 'cardNumber': '1234 5678 7777 1112'},
+      {'cardBrand': 'Master Card', 'cardNumber': '1234 5678 7777 1113'},
+      {'cardBrand': 'Master Card', 'cardNumber': '1234 5678 7777 1114'},
+    ];
+
+    return ListView.separated(
+      padding: EdgeInsets.all(0),
+      itemBuilder: (_, index) => Container(
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Color.fromARGB(40, 255, 255, 255),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.1),
+                blurRadius: 48,
+                offset: Offset(2, 8),
+                spreadRadius: -16),
+          ],
+        ),
+        child: ListTile(
+          onTap: () => _deleteCardDialogBox(cardData[index]['cardNumber']),
+          contentPadding:
+              EdgeInsets.only(left: 12, top: 0, right: 0, bottom: 0),
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(6.18),
+            child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Color.fromARGB(255, 47, 14, 129),
+                  BlendMode.color,
+                ),
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    Colors.transparent,
+                    BlendMode.saturation,
+                  ),
+                  child: Container(
+                      color: Colors.transparent,
+                      child: Image.asset(
+                        "assets/images/system_image/mastercard.png",
+                        width: 68,
+                        height: 68,
+                      )),
+                )),
+          ),
+          title: Text(
+            cardData[index]['cardBrand'],
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontSize: 16.5),
+          ),
+          subtitle: Text(
+            _formatCardNumber(cardData[index]['cardNumber']),
+            style: TextStyle(
+                fontSize: 13, color: Color.fromARGB(255, 255, 255, 255)),
+          ),
+        ),
+      ),
+      separatorBuilder: (_, b) => Divider(
+        height: 14,
+        color: Colors.transparent,
+      ),
+      itemCount: cardData.length,
+    );
+  }
