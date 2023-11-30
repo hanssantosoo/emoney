@@ -51,3 +51,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     borderRadius: BorderRadius.circular(12.5))),
           ),
         ),
+
+        pages = [
+      PageData(
+          // textColor: Color(0xFFe8f9ec),
+          mediaContent: null,
+          textColor: Colors.white,
+          bgColor: Color.fromRGBO(38, 0, 113, 1),
+          title:
+              "Welcome to Hello-Pay! Experience effortless financial transactions with Hello-Pay, our cutting-edge E-money app. Say farewell to traditional payments and step into the future of digital ease. Secure, streamlined, and ready for anything – Hello-Pay is your trusted companion for a brighter financial world!"),
+      PageData(
+        mediaContent: Image.asset(
+            'assets/images/onboarding_assets/desktop.png'),
+        title:
+            "Discover the convenience and efficiency of our application, crafted with care and precision from humble beginnings.",
+        bgColor: Color.fromRGBO(40, 4, 148, 1),
+        textColor: Colors.white,
+      ),
+      PageData(
+          mediaContent: Image.asset(
+              'assets/images/onboarding_assets/onlineshop.png'),
+          bgColor: Color.fromRGBO(38, 0, 113, 1),
+          textColor: Colors.white,
+          optionalWidget: getStarted),
+    ];
+  }
