@@ -134,3 +134,42 @@ class _StepGetEmailPasswordState extends State<StepGetEmailPassword> {
           ],
         ));
   }
+
+  void errorMessageSetter(String fieldName, String message) {
+    setState(() {
+      switch (fieldName) {
+        case 'EMAIL-ID':
+          emailIdErrorMessage = message;
+          break;
+
+        case 'PASSWORD1':
+          passwordErrorMessage = message;
+          break;
+      }
+    });
+  }
+
+  String? _validateEmailId(String? value) {
+    if (value == null || value.isEmpty) {
+      errorMessageSetter('EMAIL-ID', 'you must provide a valid email-id');
+    } else if (!validEmailFormat.hasMatch(value)) {
+      errorMessageSetter('EMAIL-ID', 'format of your email address is invalid');
+    } else {
+      errorMessageSetter('EMAIL-ID', "");
+      widget.updateSignUpDetails('emailId', value);
+    }
+
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      errorMessageSetter('PASSWORD1', 'password cannot be empty');
+    } else {
+      errorMessageSetter('PASSWORD1', "");
+
+      widget.updateSignUpDetails('password', value);
+    }
+    return null;
+  }
+}
