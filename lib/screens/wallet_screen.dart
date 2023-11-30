@@ -68,3 +68,128 @@ class WalletScreenState extends State<WalletScreen> {
       alignment: Alignment.center,
       clipBehavior: Clip.none,
     );
+Widget userInfo = Padding(
+        padding: EdgeInsets.symmetric(horizontal: 28),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text("Personal Info",
+                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)))
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Name",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 15),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Flexible(
+                  child: Text(
+                    "User1",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 15),
+                  ),
+                )
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "E-mail",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 15),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Flexible(
+                  child: Text(
+                    "user1@gmail.com",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 15),
+                  ),
+                )
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Phone",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 15),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Flexible(
+                  child: Text(
+                    "0898767890",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 15),
+                  ),
+                )
+              ],
+            ),
+          ]
+              .map((e) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    child: e,
+                  ))
+              .toList(),
+        ));
+
+    Widget myBankingCards = Expanded(
+      child: Container(
+          height: 100,
+          padding: EdgeInsets.symmetric(horizontal: 28),
+          child: FutureBuilder<Map<String, dynamic>>(
+            future: availableCards.readAvailableCards(),
+            builder: _buildAvailableCards,
+          )),
+    );
+
+    Widget walletScreenContents = Column(
+      children: [
+        walletScreenDashBoard,
+        SizedBox(
+          height: 60,
+        ),
+        userInfo,
+        SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+          child: Row(
+            children: [
+              Text(
+                "My Cards",
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ),
+              Spacer(),
+              InkWell(
+                  child: Text(
+                    "+ Add",
+                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                  ),
+                  onTap: goToAddCardScreen)
+            ],
+          ),
+        ),
+        myBankingCards,
+      ],
+    );
