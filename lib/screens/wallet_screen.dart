@@ -49,3 +49,22 @@ class WalletScreenState extends State<WalletScreen> {
             ],
           ),
         ),
+        Positioned(
+            // top: 128,
+            bottom: -60,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 64,
+              child: ClipOval(
+                child: Image.asset(
+                  "assets/images/profilepic.png",
+                  height: 120,
+                  width: 120,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ))
+      ],
+      alignment: Alignment.center,
+      clipBehavior: Clip.none,
+    );
