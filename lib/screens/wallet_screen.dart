@@ -306,3 +306,113 @@ Widget userInfo = Padding(
       itemCount: cardData.length,
     );
   }
+
+  String _formatCardNumber(String currentCardNumber, {bool encrypt = true}) {
+    String formattedCardNumber = "";
+    String cardCopy = currentCardNumber;
+    cardCopy = cardCopy.replaceAll(' ', '');
+    if (encrypt) {
+      cardCopy = cardCopy[0] +
+          '*' * (cardCopy.length - 6) +
+          cardCopy.substring(cardCopy.length - 5);
+    }
+    if (RegExp(r'^3[47]').hasMatch(currentCardNumber)) {
+      for (var i = 0; i < cardCopy.length; i++) {
+        formattedCardNumber += cardCopy[i];
+        if (i == 3 || i == 9) {
+          formattedCardNumber += ' ';
+        }
+      }
+    } else {
+      for (var i = 0; i < cardCopy.length; i++) {
+        formattedCardNumber += cardCopy[i];
+        if ((i + 1) % 4 == 0) {
+          formattedCardNumber += ' ';
+        }
+      }
+    }
+    return formattedCardNumber.trim();
+  }
+
+  void goBackToLastTabScreen() {
+    int lastTab =
+        Provider.of<TabNavigationProvider>(context, listen: false).lastTab;
+    Provider.of<TabNavigationProvider>(context, listen: false).removeLastTab();
+    widget.setTab(lastTab);
+  }
+
+  void _deleteCardDialogBox(String cardNumber) {
+    Decoration buttonDecoration = BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+            color: Colors.blueGrey.shade100,
+            offset: Offset(0, 4),
+            blurRadius: 5.0)
+      ],
+      gradient: RadialGradient(
+          colors: [Color.fromARGB(255, 80, 6, 170), Color.fromARGB(255, 60, 21, 160)],
+          radius: 8.4,
+          center: Alignment(-0.24, -0.36)),
+      borderRadius: BorderRadius.circular(10),
+    );
+    ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      primary: Colors.transparent,
+      shadowColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    );
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+              title: Text(
+                "Delete Card?",
+                textAlign: TextAlign.center,
+              ),
+              content: Text(
+                "Are you sure, you want to delete Card with number\n${_formatCardNumber(cardNumber, encrypt: false)}?",
+                textAlign: TextAlign.center,
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              actionsAlignment: MainAxisAlignment.center,
+              actions: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 48,
+                          width: 100,
+                          decoration: buttonDecoration,
+                          child: ElevatedButton(
+                              onPressed: () => _deleteSelectedCard(cardNumber),
+                              child: Text('Delete'),
+                              style: buttonStyle),
+                        ),
+                        SizedBox(
+                          width: 24,
+                        ),
+                        Container(
+                          height: 48,
+                          width: 100,
+                          decoration: buttonDecoration,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Cancel'),
+                              style: buttonStyle),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                )
+              ],
+            ));
+  }
+  
