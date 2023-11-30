@@ -130,7 +130,8 @@ class AllTransactionActivitiesState extends State<AllTransactionActivities> {
       });
     }
   }
- @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
@@ -188,3 +189,145 @@ class AllTransactionActivitiesState extends State<AllTransactionActivities> {
                               )),
                         ),
                       );
+
+                      actionIcon = Icon(
+                        Icons.close,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      );
+                    });
+                  } else {
+                    activitySearch.clear();
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    setState(() {
+                      appBarTitle = Text("Activities",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255)));
+                      actionIcon = Icon(
+                        FluentIcons.search_24_regular,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      );
+                    });
+                  }
+                },
+                icon: actionIcon),
+          ],
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        extendBodyBehindAppBar: true,
+        body: Column(children: <Widget>[
+          SizedBox(
+            height: 96,
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: Color(0xffF5F7FA),
+                borderRadius: BorderRadius.circular(10)),
+            child: ToggleButtons(
+              borderRadius: BorderRadius.circular(10),
+              color: Color(0xff929BAB),
+              fillColor: Color.fromARGB(255, 40, 4, 148),
+              selectedColor: Colors.white,
+              renderBorder: false,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                      "All",
+                      style: TextStyle(fontSize: 16),
+                    )),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                      "Sent",
+                      style: TextStyle(fontSize: 16),
+                    )),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                      "Received",
+                      style: TextStyle(fontSize: 16),
+                    )),
+              ],
+              onPressed: (int index) {
+                setState(() {
+                  for (int buttonIndex = 0;
+                      buttonIndex < _activeToggleMenu.length;
+                      buttonIndex++) {
+                    if (buttonIndex == index) {
+                      _activeToggleMenu[buttonIndex] = true;
+                    } else {
+                      _activeToggleMenu[buttonIndex] = false;
+                    }
+                  }
+                });
+              },
+              isSelected: _activeToggleMenu,
+            ),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Expanded(
+              child: Container(
+                  height: 300,
+                  width: double.infinity,
+                  child: ListView.builder(
+                      itemCount: allTransactions.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(55, 245, 247, 250),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              Column(
+                                children: [
+                                  Text(
+                                    allTransactions[index]
+                                        ['transactionMemberPhoneNumber'],
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontSize: 12),
+                                  ),
+                                  Text(
+                                    allTransactions[index]
+                                        ['transactionMemberEmail'],
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                              Column(
+                                children: [
+                                  Text(
+                                    allTransactions[index]['moneySent'],
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontSize: 12),
+                                  ),
+                                  Text(
+                                    allTransactions[index]['date'],
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      })))
+        ]));
+  }
+}
