@@ -132,3 +132,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
+
+        class PageCard extends StatelessWidget {
+  final PageData page;
+
+  const PageCard({
+    Key? key,
+    required this.page,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: 30.0,
+      ),
+      child: Column(
+        children: <Widget>[
+          _buildPicture(context),
+          if (page.optionalWidget == null && page.mediaContent != null)
+            SizedBox(height: 24),
+          if (page.title != null) _buildText(context),
+          if (page.optionalWidget != null) page.optionalWidget!
+        ],
+      ),
+    );
+  }
