@@ -277,3 +277,75 @@ class HomeDashboardScreenState extends State<HomeDashboardScreen> {
         ],
       )
     ];
+
+     List<Widget> homeScreenContents = <Widget>[
+      Stack(
+        children: dashboardContents,
+      ),
+      Container(
+        color: Colors.black,
+        padding: EdgeInsets.all(10),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Wrap(
+            direction: Axis.horizontal,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: transactionButtons,
+          ),
+        ),
+      ),
+      Expanded(
+          flex: 1,
+          child: Container(
+              color: Colors.black,
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              height: 150,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Activity",
+                          style:
+                              TextStyle(fontSize: 21, color: Color.fromARGB(255, 40, 4, 148)),
+                        ),
+                        Spacer(),
+                        InkWell(
+                          child: Text("View all",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.grey)),
+                          onTap: () {},
+                        )
+                      ],
+                    ),
+                    width: double.infinity,
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 145,
+                      child: Builder(builder: _buildTransactionActivities),
+                    ),
+                  )
+                ],
+              )))
+    ];
+
+    return Scaffold(
+
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          actions: dashboardActions,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        extendBodyBehindAppBar: true,
+        body: CustomScrollView(slivers: [
+          SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: homeScreenContents,
+              ))
+        ]));
+  }
