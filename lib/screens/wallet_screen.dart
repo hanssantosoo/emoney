@@ -28,7 +28,6 @@ class WalletScreenState extends State<WalletScreen> {
       children: [
         Container(
           height: 224, width: double.infinity,
-          //  color: Color(0xFF0070BA)
           color: Color.fromARGB(255, 40, 4, 148),
         ),
         Container(
