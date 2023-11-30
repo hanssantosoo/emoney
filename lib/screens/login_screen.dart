@@ -16,3 +16,30 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       height: 36,
     );
+
+        Widget signUpContainer = Container(
+      child: Center(
+        child: InkWell(
+          child: Text(
+            'Sign up',
+            style: TextStyle(fontSize: 14, color: Color(0xFF929BAB)),
+          ),
+          onTap: goToSignUpScreen,
+        ),
+      ),
+      width: double.infinity,
+      height: 36,
+    );
+    List<Widget> loginScreenContents = <Widget>[
+      _spacing(20),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Image.asset('assets/images/system_image/E-Wallet.png'),
+      ),
+      _spacing(30),
+      LoginFormComponent(),
+      _spacing(30),
+      helpInfoContainer,
+      _spacing(30),
+      signUpContainer
+    ];
