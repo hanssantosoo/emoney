@@ -68,7 +68,8 @@ class WalletScreenState extends State<WalletScreen> {
       alignment: Alignment.center,
       clipBehavior: Clip.none,
     );
-Widget userInfo = Padding(
+
+    Widget userInfo = Padding(
         padding: EdgeInsets.symmetric(horizontal: 28),
         child: Column(
           children: [
@@ -415,4 +416,14 @@ Widget userInfo = Padding(
               ],
             ));
   }
-  
+
+  Future<void> _deleteSelectedCard(String cardNumber) async {
+    bool cardDeletionStatus = await availableCards.deleteCard(cardNumber);
+    if (cardDeletionStatus) {
+      setState(() {});
+      Navigator.of(context).pop();
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+}
