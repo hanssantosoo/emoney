@@ -44,6 +44,56 @@ class HomeDashboardScreenState extends State<HomeDashboardScreen> {
       "status": "success",
       "transactionId": "1234567893"
     },
+    {
+      "id": 4,
+      "email": "ivan1@gmail.com",
+      "name": "Ivan",
+      "date": "2023-11-01",
+      "amount": 10000,
+      "type": "credit",
+      "status": "success",
+      "transactionId": "1234567894"
+    },
+    {
+      "id": 5,
+      "email": "sabsa@gmail.com",
+      "name": "Sabrina",
+      "date": "2023-11-01",
+      "amount": 12.000,
+      "type": "credit",
+      "status": "success",
+      "transactionId": "1234567895"
+    },
+    {
+      "id": 6,
+      "email": "hans1@gmail.com",
+      "name": "Hans",
+      "date": "2023-11-01",
+      "amount": 20000,
+      "type": "credit",
+      "status": "success",
+      "transactionId": "1234567896"
+    },
+    {
+      "id": 7,
+      "email": "jadej@gmail.com",
+      "name": "Jade",
+      "date": "2023-11-01",
+      "amount": 10000,
+      "type": "credit",
+      "status": "success",
+      "transactionId": "1234567897"
+    },
+    {
+      "id": 8,
+      "email": "sabsa@gmail.com",
+      "name": "sabrina",
+      "date": "2023-11-01",
+      "amount": 15500,
+      "type": "credit",
+      "status": "success",
+      "transactionId": "1234567880"
+    },
     
   ];
 
