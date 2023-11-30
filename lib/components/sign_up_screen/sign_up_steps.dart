@@ -200,3 +200,197 @@ class _SignUpStepsState extends State<SignUpSteps> {
                                     borderRadius: BorderRadius.circular(20)),
                               )),
                         ),
+                      Spacer(),
+                      if (_currentStep < signUpStepContent.length - 1)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: TextButton(
+                              onPressed: _proceedToNextStep,
+                              child: Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  spacing: 3.2,
+                                  children: [
+                                    Text(
+                                      'Next',
+                                      style: TextStyle(
+                                          color: Colors.blue, fontSize: 16),
+                                    ),
+                                    Icon(
+                                      FluentIcons.arrow_right_16_filled,
+                                      color: Colors.blue,
+                                      size: 18,
+                                    )
+                                  ]),
+                              style: TextButton.styleFrom(
+                                primary: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                              )),
+                        ),
+                    ],
+                  ),
+          ],
+        ));
+  }
+
+  void _finalStepProccessing() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    _performErrorCheck(_currentStep + 1);
+
+    if (stepHasError[_currentStep] == false && mounted) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+            SnackBar(
+              content: Text('Processing'),
+              backgroundColor: Colors.blue,
+              // onVisible: _tryRegistering,
+            ),
+          )
+          .closed
+          .then((value) => _tryRegistering());
+    }
+  }
+
+//? FUNCTION TO GO BACK TO PREVIOUS STEP OF THE CURRENT STEP
+  void _goBackToPreviousStep() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    _performErrorCheck(_currentStep - 1);
+    if (_currentStep > 0) {
+      _signUpStepController.animateToPage(_currentStep - 1,
+          duration: Duration(milliseconds: 500), curve: Curves.easeInOutCubic);
+      setState(() {
+        _currentStep--;
+      });
+    }
+  }
+
+//? FUNCTION TO MOVE TO THE NEXT STEP FROM THE CURRENT STEP
+  void _proceedToNextStep() {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    _performErrorCheck(_currentStep + 1);
+
+    if (stepHasError[_currentStep] == false) {
+      if (_currentStep < signUpStepContent.length - 1) {
+        _signUpStepController.animateToPage(_currentStep + 1,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeInOutCubic);
+
+        setState(() {
+          _currentStep++;
+        });
+      }
+    }
+  }
+
+//? FUNCTION TO UPDATE SIGN UP DETAILS
+  void updateSignUpDetails(String key, String value) {
+    setState(() {
+      signUpDetails[key] = value;
+    });
+  }
+
+//? FUNCTION TO TOGGLE VISIBILITY OF SIGN UP BUTTON
+  void showConfirmSignUpButton(bool value) {
+    if (value != confirmSignUpButton) {
+      setState(() {
+        confirmSignUpButton = value;
+      });
+    }
+  }
+
+//? FUNCTION TO CHECK FOR ERRORS IN ANY STEPS PRIOR FROM THE ONE REQUESTED
+  void _performErrorCheck(int requestedIndex) {
+    if (_currentStep < requestedIndex) {
+      for (var i = 0; i < requestedIndex; i++) {
+        bool errorStatus = false;
+        switch (i) {
+          case 0:
+            nameAddressFormKey.currentState?.validate();
+            if (signUpDetails["fullname"]!.isEmpty ||
+                signUpDetails['address']!.isEmpty) {
+              errorStatus = true;
+            }
+
+            break;
+          case 1:
+            emailPasswordFormKey.currentState?.validate();
+            if (stepCompletedSuccessfully[1]) {
+              errorStatus = false;
+            } else if (stepCompletedSuccessfully[0] && _currentStep == 1) {
+              // emailPasswordFormKey.currentState?.validate();
+              if (signUpDetails["emailId"]!.isEmpty ||
+                  signUpDetails["password"]!.isEmpty) {
+                errorStatus = true;
+              }
+            } else {
+              errorStatus = true;
+            }
+            break;
+          case 2:
+            bankAccountFormKey.currentState?.validate();
+            if (signUpDetails["bankAccount"]!.isEmpty) {
+              errorStatus = true;
+            }
+
+            break;
+        }
+
+        setState(() {
+          stepHasError[i] = errorStatus;
+          stepCompletedSuccessfully[i] = !stepHasError[i];
+        });
+        if (errorStatus) {
+          break;
+        }
+      }
+    } else {
+      for (var i = _currentStep; i >= 0; i--) {
+        bool errorStatus = false;
+        switch (i) {
+          case 0:
+            nameAddressFormKey.currentState?.validate();
+            if (signUpDetails["fullname"]!.isEmpty ||
+                signUpDetails['address']!.isEmpty) {
+              errorStatus = true;
+            }
+
+            break;
+          case 1:
+            emailPasswordFormKey.currentState?.validate();
+            if (stepCompletedSuccessfully[1]) {
+              errorStatus = false;
+            } else if (stepCompletedSuccessfully[0] && _currentStep == 1) {
+              // emailPasswordFormKey.currentState?.validate();
+              if (signUpDetails["emailId"]!.isEmpty ||
+                  signUpDetails["password"]!.isEmpty) {
+                errorStatus = true;
+              }
+            } else {
+              errorStatus = true;
+            }
+            break;
+          case 2:
+            bankAccountFormKey.currentState?.validate();
+            if (signUpDetails["bankAccount"]!.isEmpty) {
+              errorStatus = true;
+            }
+
+            break;
+        }
+
+        setState(() {
+          stepHasError[i] = errorStatus;
+          stepCompletedSuccessfully[i] = !stepHasError[i];
+        });
+        if (errorStatus) {
+          break;
+        }
+      }
+    }
+  }
