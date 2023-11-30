@@ -62,6 +62,9 @@ flutter:
   assets:
     - assets/images/
     - assets/images/system_image/
+    - assets/images/notification_assets/
+    - assets/images/card_flow_assets/
+    - assets/images/onboarding_assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
