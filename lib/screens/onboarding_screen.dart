@@ -158,3 +158,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
     );
   }
+
+          Widget _buildText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 30.0,
+      ),
+      child: Text(
+        page.title!,
+        style: Theme.of(context).textTheme.bodyText2,
+        textAlign: TextAlign.left,
+      ),
+    );
+  }
