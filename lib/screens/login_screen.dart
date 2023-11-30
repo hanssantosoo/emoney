@@ -60,4 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
         context, MaterialPageRoute(builder: (context) => SignUpScreen()));
   }
 
-  
+ SizedBox _spacing(double height) => SizedBox(
+        height: height,
+      );
+}  
