@@ -171,3 +171,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
     );
   }
+
+           Widget _buildPicture(
+    BuildContext context,
+  ) {
+    return Container(
+      width: MediaQuery.of(context).size.width - 64,
+      margin: EdgeInsets.only(
+        top: 120,
+      ),
+      child: page.mediaContent,
+    );
+  }
+}
