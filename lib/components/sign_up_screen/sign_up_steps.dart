@@ -394,3 +394,48 @@ class _SignUpStepsState extends State<SignUpSteps> {
       }
     }
   }
+
+  void _tryRegistering() {
+    Navigator.pushReplacement(context, SlideRightRoute(page: ChooseUsername()));
+  }
+
+//? FUNCTION TO CHANGE STEP ON TAPPING THE OVERHEAD STEP NUMBERS
+  void changeStepOnTap(int requestedIndex) {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    if (requestedIndex < _currentStep) {
+      _signUpStepController.animateToPage(requestedIndex,
+          duration: Duration(milliseconds: 500), curve: Curves.easeInOutCubic);
+
+      _performErrorCheck(requestedIndex);
+      setState(() {
+        _currentStep = requestedIndex;
+      });
+    } else if (requestedIndex > _currentStep &&
+        requestedIndex != _currentStep) {
+      _performErrorCheck(requestedIndex);
+
+      if (!stepHasError.sublist(0, requestedIndex).contains(true)) {
+        if (_currentStep < signUpStepContent.length - 1) {
+          _signUpStepController.animateToPage(requestedIndex,
+              duration: Duration(milliseconds: 500),
+              curve: Curves.easeInOutCubic);
+
+          setState(() {
+            _currentStep = requestedIndex;
+          });
+        }
+      } else {
+        int stepWithError =
+            stepHasError.sublist(0, requestedIndex).indexOf(true);
+        _signUpStepController.animateToPage(stepWithError,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeInOutCubic);
+
+        setState(() {
+          _currentStep = stepWithError;
+        });
+      }
+    }
+  }
+}
