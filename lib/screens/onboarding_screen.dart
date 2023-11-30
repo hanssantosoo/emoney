@@ -51,8 +51,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     borderRadius: BorderRadius.circular(12.5))),
           ),
         ),
-
-        pages = [
+       
+      ],
+    );
+    pages = [
       PageData(
           // textColor: Color(0xFFe8f9ec),
           mediaContent: null,
@@ -77,7 +79,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ];
   }
 
-        void completedOrientation() async {
+  
+
+  void completedOrientation() async {
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => LoginScreen()),
         (route) => false);
@@ -85,7 +89,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   List<Color> get colors => pages.map((p) => p.bgColor).toList();
-@override
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -133,7 +138,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 }
 
-        class PageCard extends StatelessWidget {
+class PageCard extends StatelessWidget {
   final PageData page;
 
   const PageCard({
@@ -159,7 +164,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-          Widget _buildText(BuildContext context) {
+  Widget _buildText(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: 30.0,
@@ -172,7 +177,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-           Widget _buildPicture(
+  Widget _buildPicture(
     BuildContext context,
   ) {
     return Container(
