@@ -76,3 +76,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           optionalWidget: getStarted),
     ];
   }
+
+        void completedOrientation() async {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+        (route) => false);
+    // }
+  }
+
+  List<Color> get colors => pages.map((p) => p.bgColor).toList();
