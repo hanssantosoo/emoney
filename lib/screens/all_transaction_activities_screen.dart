@@ -130,3 +130,61 @@ class AllTransactionActivitiesState extends State<AllTransactionActivities> {
       });
     }
   }
+ @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        //  backgroundColor: Color(0xfffcfcfc),
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                int lastTab =
+                    Provider.of<TabNavigationProvider>(context, listen: false)
+                        .lastTab;
+                Provider.of<TabNavigationProvider>(context, listen: false)
+                    .removeLastTab();
+                widget.setTab(lastTab);
+              },
+              icon: Icon(Icons.arrow_back,
+                  color: Color.fromARGB(255, 255, 255, 255))),
+          title: appBarTitle,
+          centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  if (actionIcon.icon == FluentIcons.search_24_regular) {
+                    setState(() {
+                      appBarTitle = Container(
+                        height: 48,
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            color: Color(0xffF5F7FA),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16.18))),
+                        child: TextField(
+                          controller: activitySearch,
+                          autofocus: true,
+                          textAlignVertical: TextAlignVertical.center,
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 45, 45, 45)),
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(6.18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0xffF5F7FA), width: 1.618),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16))),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0xffF5F7FA), width: 1.618),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16))),
+                              hintText: 'Search...',
+                              hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 40, 40, 40),
+                              )),
+                        ),
+                      );
