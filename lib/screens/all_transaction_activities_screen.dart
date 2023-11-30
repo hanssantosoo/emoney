@@ -97,3 +97,36 @@ class AllTransactionActivitiesState extends State<AllTransactionActivities> {
       "date": "2023-11-01"
     },
    
+];
+  List<bool> _activeToggleMenu = [true, false, false];
+  Map<String, dynamic>? error = null;
+  late TextEditingController activitySearch;
+
+  Widget appBarTitle = Text("Activities",
+      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)));
+  Icon actionIcon = Icon(
+    FluentIcons.search_24_regular,
+    color: Color.fromARGB(255, 255, 255, 255),
+  );
+  @override
+  void initState() {
+    super.initState();
+
+    // getTransactionsFromApi();
+
+    activitySearch = TextEditingController();
+  }
+
+  void _updateTransactions() {
+    if (mounted) {
+      setState(() {
+        allTransactions.sort(
+            (a, b) => b['transactionDate'].compareTo(a['transactionDate']));
+        for (var transaction in allTransactions) {
+          String dateResponse =
+              customGroup(DateTime.parse(transaction['transactionDate']));
+          transaction['dateGroup'] = dateResponse;
+        }
+      });
+    }
+  }
