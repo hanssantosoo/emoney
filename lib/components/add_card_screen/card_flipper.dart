@@ -151,3 +151,8 @@ class _CardFlipperState extends State<CardFlipper>
 
 
 }
+
+class CardFlippingController {
+  _CardFlipperState? cardState;
+  Future<bool> flipCard() async => await cardState!.flipCard();
+}
