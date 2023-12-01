@@ -91,3 +91,16 @@ for (var i = 0; i < dateGroups.length; i++) {
   }
   return comparison;
 }
+String dateFormatter(String dateGroup, DateTime transactionDate) {
+  String formattedDate = '';
+  if (dateGroup == 'Today') {
+    formattedDate = _formatTime1(transactionDate);
+  } else if (dateGroup == 'Yesterday') {
+    formattedDate =
+        "Yesterday at ${formatTime2(transactionDate.hour, transactionDate.minute)}";
+  } else {
+    formattedDate =
+        "${transactionDate.day}-${transactionDate.month}-${transactionDate.year} at ${formatTime2(transactionDate.hour, transactionDate.minute)}";
+  }
+  return formattedDate;
+}
