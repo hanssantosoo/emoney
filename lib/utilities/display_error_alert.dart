@@ -55,3 +55,21 @@ void showErrorAlert(BuildContext context, Map<String, dynamic> error) {
             ],
           ));
 }
+class _CommonError {
+  BuildContext context;
+  Map<String, dynamic> error;
+  _CommonError(this.context, this.error);
+  List<Widget> get errorDescription => <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 24, bottom: 12),
+          child: Text(
+            error[error.keys.first],
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ];
+
+  void onClose() {
+    Navigator.of(context).pop();
+  }
+}
