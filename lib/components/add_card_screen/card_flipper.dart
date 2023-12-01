@@ -49,3 +49,38 @@ class _CardFlipperState extends State<CardFlipper>
   @override
   void initState() {
     super.initState();
+
+     cardFlippingController =
+        AnimationController(vsync: this, duration: widget.transitionDuration);
+
+    if (isFacingUp) {
+      flipAnimation = leftToRight.animate(cardFlippingController);
+    } else {
+      flipAnimation = rightToLeft.animate(cardFlippingController);
+    }
+
+    cardFlippingController.addListener(() {
+      if (cardFlippingController.isCompleted) {
+        cardFlippingController.reset();
+
+        setState(() {
+          isFacingUp = !isFacingUp;
+          if (isFacingUp) {
+            flipAnimation = leftToRight.animate(cardFlippingController);
+          } else {
+            flipAnimation = rightToLeft.animate(cardFlippingController);
+          }
+          defaultSkew = 0;
+          skewFactor = 0;
+        });
+      } else if (cardFlippingController.isAnimating) {
+        setState(() {
+          defaultSkew = 0.001;
+          skewFactor = flipAnimation.value;
+        });
+        setImage();
+      }
+
+    });
+    widget.cardFlippingController?.cardState = this;
+  }
