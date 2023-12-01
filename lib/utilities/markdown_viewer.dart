@@ -24,7 +24,8 @@ class HadWinMarkdownViewerState extends State<HadWinMarkdownViewer> {
   void initState() {
     super.initState();
   }
-@override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
@@ -119,6 +120,7 @@ class HadWinMarkdownViewerState extends State<HadWinMarkdownViewer> {
           )
         ]));
   }
+
   Future<String> getTextData(String url) async {
     var response;
     try {
@@ -131,7 +133,8 @@ class HadWinMarkdownViewerState extends State<HadWinMarkdownViewer> {
     }
     return response.body;
   }
- Widget docsLoading() {
+
+  Widget docsLoading() {
     return ListView.separated(
         itemBuilder: (context, index) {
           return Column(
