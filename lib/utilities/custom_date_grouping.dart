@@ -56,3 +56,20 @@ if (years == 1) {
   }
   return response;
 }
+int customGroupComparator(String group1, String group2) {
+  int comparison = -1;
+  int group1Match = 0;
+  int group2Match = 0;
+  List<String> dateGroups = [
+    r'Today',
+    r'Yesterday',
+    r'This week',
+    r'Last week',
+    r'\d{1} weeks ago',
+    r'Last month',
+    r'\d{1} months ago',
+    r'More than 6 months ago',
+    r'Last year',
+    r'\d{1} years ago',
+    r'More than 5 years ago',
+  ];
