@@ -266,3 +266,43 @@ class _AddCardScreenState extends State<AddCardScreen>
               width: 14,
             ),
           )),
+    );
+    Widget goBackToPreviousStepButton = TextButton(
+        onPressed: backToPreviousStep,
+        child: Text(
+          "BACK",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+        ));
+    Widget goToNextStepButton = TextButton(
+        onPressed: proceedToNextStep,
+        child: Text(
+          "NEXT",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+        ));
+    Widget completedAllStepsButton = TextButton(
+        onPressed: _tryAddingCard,
+        child: Text(
+          "DONE",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+        ));
+
+    Widget cardInputNavigationButtons = Container(
+      color: Color.fromARGB(255, 40, 4, 148),  // width: double.infinity,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.all(0),
+      child: _currentStep < 3
+          ? Wrap(
+              alignment: WrapAlignment.spaceAround,
+              children: [
+                if (_currentStep > 0) goBackToPreviousStepButton,
+                goToNextStepButton
+              ],
+            )
+          : _cardHolderInputController.text.isNotEmpty
+              ? completedAllStepsButton
+              : goBackToPreviousStepButton,
+    );
+    
