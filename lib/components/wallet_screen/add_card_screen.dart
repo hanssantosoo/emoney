@@ -242,3 +242,27 @@ class _AddCardScreenState extends State<AddCardScreen>
             transitionDuration: Duration(milliseconds: 960),
             frontSide: cardFrontSide,
             backSide: cardBackSide));
+
+    Widget cardInputFieldsSpace = Container(
+      // width: double.infinity,
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(16),
+      height: 100,
+      color: Colors.white,
+      child: FocusScope(
+          node: cardDetailsFocusNodes,
+          child: ScrollablePositionedList.separated(
+            scrollDirection: Axis.horizontal,
+            itemScrollController: _cardInputDataController,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: cardInputFields.length,
+            itemBuilder: (context, index) {
+              return Opacity(
+                opacity: _currentStep == index ? 1 : 0.3,
+                child: cardInputFields[index],
+              );
+            },
+            separatorBuilder: (context, index) => SizedBox(
+              width: 14,
+            ),
+          )),
