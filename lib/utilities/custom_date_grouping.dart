@@ -183,3 +183,8 @@ String _formatTime1(DateTime transactionDate) {
   }
   return response;
 }
+String dateToWords(DateTime transactionDate) {
+  String day = _formatDay(transactionDate.day);
+  String month = _findMonthInWords(transactionDate.month);
+  return "$day $month, ${transactionDate.year}";
+}
