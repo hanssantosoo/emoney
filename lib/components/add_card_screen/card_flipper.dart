@@ -81,6 +81,11 @@ class _CardFlipperState extends State<CardFlipper>
         setImage();
       }
 
+       @override
+  void dispose() {
+    cardFlippingController.dispose();
+    super.dispose();
+  }
     });
     widget.cardFlippingController?.cardState = this;
   }
