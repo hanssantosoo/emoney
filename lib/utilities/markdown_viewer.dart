@@ -131,3 +131,41 @@ class HadWinMarkdownViewerState extends State<HadWinMarkdownViewer> {
     }
     return response.body;
   }
+ Widget docsLoading() {
+    return ListView.separated(
+        itemBuilder: (context, index) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: FadeShimmer(
+                  height: 27,
+                  width: 100,
+                  radius: 7.2,
+                  highlightColor: Color(0xffced4da),
+                  baseColor: Color(0xffe9ecef),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1.618),
+              ),
+              ...List.generate(
+                  4,
+                  (i) => Container(
+                        child: FadeShimmer(
+                          height: 21,
+                          width: MediaQuery.of(context).size.width - 24,
+                          radius: 7.2,
+                          highlightColor: Color(0xffced4da),
+                          baseColor: Color(0xffe9ecef),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 1.618),
+                      )).toList(),
+            ],
+          );
+        },
+        separatorBuilder: (_, b) => SizedBox(
+              height: 10,
+            ),
+        itemCount: 5);
+  }
+}
