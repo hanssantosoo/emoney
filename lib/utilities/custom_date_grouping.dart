@@ -19,7 +19,8 @@ String customGroup(DateTime transactionDate) {
   int nDaysInBetween = calcDaysBetween(transactionDate, latestDate);
  
   int years = nDaysInBetween ~/ 365;
-if (years == 1) {
+
+  if (years == 1) {
     response = 'Last year';
   } else if (years > 1 && years <= 5) {
     response = '$years years ago';
@@ -56,6 +57,7 @@ if (years == 1) {
   }
   return response;
 }
+
 int customGroupComparator(String group1, String group2) {
   int comparison = -1;
   int group1Match = 0;
@@ -73,7 +75,8 @@ int customGroupComparator(String group1, String group2) {
     r'\d{1} years ago',
     r'More than 5 years ago',
   ];
-for (var i = 0; i < dateGroups.length; i++) {
+
+  for (var i = 0; i < dateGroups.length; i++) {
     if (RegExp(dateGroups[i]).hasMatch(group1)) {
       group1Match = i;
     }
@@ -91,6 +94,7 @@ for (var i = 0; i < dateGroups.length; i++) {
   }
   return comparison;
 }
+
 String dateFormatter(String dateGroup, DateTime transactionDate) {
   String formattedDate = '';
   if (dateGroup == 'Today') {
@@ -104,6 +108,7 @@ String dateFormatter(String dateGroup, DateTime transactionDate) {
   }
   return formattedDate;
 }
+
 String formatTime2(int hrs, int mins) {
   int newHrs = 0;
   String midDayStatus = '';
@@ -124,6 +129,7 @@ String formatTime2(int hrs, int mins) {
 
   return "$newHrs:$minutesAsString $midDayStatus";
 }
+
 String formatTime3(String date) {
   DateTime someDate = DateTime.parse(date);
   int hrs = someDate.hour;
@@ -151,6 +157,7 @@ String formatTime3(String date) {
 
   return "$newHrs:$mins $midDayStatus";
 }
+
 String _formatTime1(DateTime transactionDate) {
   DateTime latestDate = DateTime.now();
 
@@ -183,11 +190,14 @@ String _formatTime1(DateTime transactionDate) {
   }
   return response;
 }
+
+
 String dateToWords(DateTime transactionDate) {
   String day = _formatDay(transactionDate.day);
   String month = _findMonthInWords(transactionDate.month);
   return "$day $month, ${transactionDate.year}";
 }
+
 //? FUNCTION FOR RETRIEVING ORDINALS
 String _formatDay(int day) {
   String suffix = '';
@@ -210,6 +220,7 @@ String _formatDay(int day) {
   }
   return "$day$suffix";
 }
+
 //? FUNCTION FOR RETRIEVING ORDINALS
 String _formatDay(int day) {
   String suffix = '';
