@@ -18,3 +18,9 @@ class HadWinMarkdownViewer extends StatefulWidget {
   @override
   HadWinMarkdownViewerState createState() => HadWinMarkdownViewerState();
 }
+
+class HadWinMarkdownViewerState extends State<HadWinMarkdownViewer> {
+  @override
+  void initState() {
+    super.initState();
+  }
