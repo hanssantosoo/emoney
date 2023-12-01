@@ -539,3 +539,182 @@ class _AddCardScreenState extends State<AddCardScreen>
               ))
         ],
       ),
+      Wrap(
+        direction: Axis.vertical,
+        children: [
+          Text("CVV/CVC", style: inputLabelStyle),
+          Container(
+              color: Colors.transparent,
+              width: 100,
+              child: TextField(
+                controller: _cvvInputController,
+                onChanged: (value) {
+                  setState(() {});
+                  if (value.length == 3) {
+                    proceedToNextStep();
+                  }
+                },
+                showCursor: false,
+                enableSuggestions: false,
+                autocorrect: false,
+                autofillHints: null,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(3),
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                ],
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none),
+              ))
+        ],
+      ),
+      Wrap(
+        direction: Axis.vertical,
+        children: [
+          Text("CARD HOLDER'S NAME", style: inputLabelStyle),
+          Container(
+              color: Colors.transparent,
+              width: 200,
+              child: TextField(
+                controller: _cardHolderInputController,
+                keyboardType: TextInputType.visiblePassword,
+                textInputAction: TextInputAction.done,
+                showCursor: false,
+                enableSuggestions: false,
+                autocorrect: false,
+                autofillHints: null,
+                onChanged: (value) {
+                  setState(() {});
+                },
+                onSubmitted: (_) => _tryAddingCard(),
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(19),
+                  FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z]|\s'))
+                ],
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none),
+              ))
+        ],
+      )
+    ];
+  }
+
+  void _onExpiryDateChanged(value) {
+    final formattedDate = formatExpiryDate(value);
+    setState(() {});
+    if (RegExp(r"\b\d{1,2}\/\d{2}\b").hasMatch(formattedDate)) {
+      proceedToNextStep();
+    }
+  }
+
+  void _onCardNumberChanged(value) {
+    var cursorPos = _cardNumberInputController.selection.base.offset;
+
+    String formattedCardNumber = _formatCardNumber(value.replaceAll(' ', ''));
+    _cardNumberInputController.value = TextEditingValue(
+      text: formattedCardNumber,
+      selection: TextSelection.fromPosition(TextPosition(
+          offset: (formattedCardNumber.length -
+                  value.replaceAll(' ', '').length +
+                  cursorPos)
+              .toInt())),
+    );
+    setState(() {});
+    String currentCardBrand = identifyCardShorter(value);
+    if (currentCardBrand != cardBrand) {
+      setState(() {
+        cardBrand = currentCardBrand;
+        if (cardBrand == 'default') {
+          currentCardFrontSideImage = Image.asset(
+            'assets/images/card_flow_assets/default-frontside.png',
+            key: ValueKey(1),
+          );
+
+          currentCardBackSideImage = Image.asset(
+              'assets/images/card_flow_assets/$cardBrand-backside.png');
+        } else {
+          int randomValueKey = Random().nextInt(20) + 2;
+          currentCardFrontSideImage = Image.asset(
+            'assets/images/card_flow_assets/$cardBrand-frontside.png',
+            key: ValueKey(randomValueKey),
+          );
+
+          currentCardBackSideImage = Image.asset(
+              'assets/images/card_flow_assets/$cardBrand-backside.png');
+        }
+        precacheImage(currentCardFrontSideImage.image, context);
+        precacheImage(currentCardBackSideImage.image, context);
+      });
+    }
+
+    if (cardBrand != 'default' &&
+        _cardNumberInputController.text.replaceAll(' ', '').length ==
+            cardNumberMaxLengths[cardBrand]) {
+      proceedToNextStep();
+    }
+  }
+
+  String formatExpiryDate(String value) {
+    int cursorPos = _expiryDateInputController.selection.base.offset;
+
+    String formattedDate = value;
+    String suffix = _expiryDateInputController.text.substring(cursorPos);
+    if (cursorPos > 0) {
+      cursorPos -= 1;
+    }
+    String prefix = _expiryDateInputController.text.substring(0, cursorPos);
+    String lastInput = value.isEmpty ? '' : value[cursorPos];
+    int lastInputLength = lastInput.length;
+
+    if (value.isNotEmpty && value[cursorPos] == '/' && suffix.isEmpty) {
+      formattedDate = prefix + suffix;
+      lastInputLength = 0;
+      //? formattedDate goes in here
+    } else if (RegExp(r'^\d{1,2}$').hasMatch(value)) {
+      if (value.length == 1 && int.parse(value) > 1) {
+        formattedDate = prefix + lastInput + '/' + suffix;
+        lastInputLength += 1;
+      } else if (value.length == 1 && int.parse(value) <= 1) {
+        formattedDate = prefix + lastInput + suffix;
+      } else if (value.length == 2 &&
+          (int.parse(value) >= 1 && int.parse(value) <= 12)) {
+        formattedDate = prefix + lastInput + '/' + suffix;
+        lastInputLength += 1;
+      } else {
+        formattedDate = prefix + suffix;
+        lastInputLength = 0;
+      }
+    } else if (RegExp(r'^\d{1,2}\/\d{1,2}$').hasMatch(value)) {
+      int currentYear = DateTime.now().year % 2000;
+      int cardExpiryYear = int.parse(value.split('/').last);
+
+      if (cardExpiryYear.toString().length == 1 &&
+          cardExpiryYear >= currentYear % 10) {
+        formattedDate = prefix + lastInput + suffix;
+      } else if (RegExp(r'^\d{1,2}\/\d{2}$').hasMatch(value) &&
+          cursorPos == 0) {
+        formattedDate = prefix + suffix;
+        lastInputLength = 0;
+      } else if (cardExpiryYear.toString().length == 2 &&
+          cardExpiryYear >= currentYear) {
+        formattedDate = prefix + lastInput + suffix;
+      } else {
+        formattedDate = prefix + suffix;
+        lastInputLength = 0;
+      }
+    } else {
+      formattedDate = "";
+      lastInputLength = 0;
+      cursorPos = 0;
+    }
