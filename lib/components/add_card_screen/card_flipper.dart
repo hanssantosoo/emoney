@@ -37,7 +37,7 @@ class _CardFlipperState extends State<CardFlipper>
         tween: Tween<double>(begin: 190, end: 180), weight: 1),
   ]);
 
-   TweenSequence<double> rightToLeft = TweenSequence(<TweenSequenceItem<double>>[
+  TweenSequence<double> rightToLeft = TweenSequence(<TweenSequenceItem<double>>[
     TweenSequenceItem<double>(
         tween: Tween<double>(begin: 0, end: 180), weight: 3),
     TweenSequenceItem<double>(
@@ -50,7 +50,8 @@ class _CardFlipperState extends State<CardFlipper>
   void initState() {
     super.initState();
 
-     cardFlippingController =
+
+    cardFlippingController =
         AnimationController(vsync: this, duration: widget.transitionDuration);
 
     if (isFacingUp) {
@@ -81,16 +82,17 @@ class _CardFlipperState extends State<CardFlipper>
         setImage();
       }
 
-       @override
-  void dispose() {
-    cardFlippingController.dispose();
-    super.dispose();
-  }
     });
     widget.cardFlippingController?.cardState = this;
   }
 
-   void setImage() {
+  @override
+  void dispose() {
+    cardFlippingController.dispose();
+    super.dispose();
+  }
+
+  void setImage() {
     if (isFacingUp) {
       if (skewFactor >= 270) {
         setState(() {
@@ -132,14 +134,22 @@ class _CardFlipperState extends State<CardFlipper>
    
   }
 
-   @override
+  Future<bool> flipCard() async {
+   
+    return cardFlippingController.forward().then((value) => true);
+  
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (isFacingUp && skewFactor == 0) {
       displayedCard = widget.frontSide;
     } else if (!isFacingUp && skewFactor == 0) {
       displayedCard = widget.backSide;
     }
- return Transform(
+
+
+    return Transform(
       transform: Matrix4.identity()
         ..setEntry(3, 2, defaultSkew)
         ..rotateY(skewFactor / 180 * pi),
