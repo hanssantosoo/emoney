@@ -144,3 +144,11 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
       ),
     );
   }
+
+    void goBackToWalletScreen() {
+    int count = 0;
+    if (mounted) {
+      Navigator.of(context).popUntil((_) => count++ >= 2);
+    }
+  }
+}
