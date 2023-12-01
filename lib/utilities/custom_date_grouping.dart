@@ -151,3 +151,35 @@ String formatTime3(String date) {
 
   return "$newHrs:$mins $midDayStatus";
 }
+String _formatTime1(DateTime transactionDate) {
+  DateTime latestDate = DateTime.now();
+
+  int seconds = calcSecondsBetween(transactionDate, latestDate);
+
+  int minutes = seconds ~/ 60;
+  int hours = minutes ~/ 60;
+
+  String response = '';
+  if (hours == 1) {
+    response = 'an hour ago';
+  } else if (hours > 1 && hours < 24) {
+    response = '$hours hours ago';
+  } else {
+    if (minutes > 30) {
+      response = 'half an hour ago';
+    } else if (minutes <= 30 && minutes > 1) {
+      response = '$minutes minutes ago';
+    } else if (minutes == 1) {
+      response = 'a minute ago';
+    } else {
+      if (seconds <= 0) {
+        response = 'just now';
+      } else if (seconds == 1) {
+        response = 'a second ago';
+      } else {
+        response = '$seconds seconds ago';
+      }
+    }
+  }
+  return response;
+}
