@@ -9,3 +9,19 @@ class CardProcessingScreen extends StatefulWidget {
   @override
   State<CardProcessingScreen> createState() => _CardProcessingScreenState();
 }
+
+class _CardProcessingScreenState extends State<CardProcessingScreen>
+    with TickerProviderStateMixin {
+  late AnimationController cardProcessingAnimationController;
+  bool exitScreen = false;
+  bool showMessage = false;
+  late Widget processStatusAnimation;
+  String title = "Processing...";
+  Widget processStatusText2 = SizedBox(
+    height: 48,
+    key: ValueKey(0),
+  );
+  Widget processStatusText = SizedBox(
+    height: 48,
+    key: ValueKey(0),
+  );
