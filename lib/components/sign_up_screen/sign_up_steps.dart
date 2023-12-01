@@ -88,9 +88,9 @@ class _SignUpStepsState extends State<SignUpSteps> {
                                       ? Colors.red.shade600
                                       : !stepCompletedSuccessfully[e]
                                           ? Color(0xffF5F7FA)
-                                          : Colors.green.shade600,
+                                          : Color.fromARGB(255, 187, 8, 194),
                                   foregroundColor: !stepCompletedSuccessfully[e]
-                                      ? Color(0xFF0070BA)
+                                      ? Color.fromARGB(255, 78, 2, 176)
                                       : Color.fromRGBO(40, 4, 148, 1),
                                   radius: 18,
                                   child: stepHasError[e]
@@ -110,7 +110,7 @@ class _SignUpStepsState extends State<SignUpSteps> {
                                 height: 10,
                                 width: 70,
                                 color: stepCompletedSuccessfully[e]
-                                    ? Colors.green.shade600
+                                    ? Color.fromARGB(255, 187, 8, 194)
                                     : Colors.transparent,
                               ),
                           ],
@@ -148,7 +148,7 @@ class _SignUpStepsState extends State<SignUpSteps> {
                     height: 64,
                     decoration: BoxDecoration(
                       gradient: RadialGradient(
-                          colors: [Color(0xff0070BA), Color(0xff1546A0)],
+                          colors: [Color.fromARGB(255, 78, 2, 176), Color.fromARGB(255, 94, 6, 152)],
                           radius: 8.4,
                           center: Alignment(-0.24, -0.36)),
                       borderRadius: BorderRadius.circular(20),
@@ -183,13 +183,13 @@ class _SignUpStepsState extends State<SignUpSteps> {
                                   children: [
                                     Icon(
                                       FluentIcons.arrow_left_16_filled,
-                                      color: Colors.blue,
+                                      color: const Color.fromARGB(255, 78, 2, 176),
                                       size: 18,
                                     ),
                                     Text(
                                       'Back',
                                       style: TextStyle(
-                                          color: Colors.blue, fontSize: 16),
+                                          color: const Color.fromARGB(255, 78, 2, 176), fontSize: 16),
                                     ),
                                   ]),
                               style: TextButton.styleFrom(
@@ -216,11 +216,11 @@ class _SignUpStepsState extends State<SignUpSteps> {
                                     Text(
                                       'Next',
                                       style: TextStyle(
-                                          color: Colors.blue, fontSize: 16),
+                                          color: const Color.fromARGB(255, 78, 2, 176), fontSize: 16),
                                     ),
                                     Icon(
                                       FluentIcons.arrow_right_16_filled,
-                                      color: Colors.blue,
+                                      color: const Color.fromARGB(255, 78, 2, 176),
                                       size: 18,
                                     )
                                   ]),
@@ -247,7 +247,7 @@ class _SignUpStepsState extends State<SignUpSteps> {
           .showSnackBar(
             SnackBar(
               content: Text('Processing'),
-              backgroundColor: Colors.blue,
+              backgroundColor: const Color.fromARGB(255, 78, 2, 176),
               // onVisible: _tryRegistering,
             ),
           )
