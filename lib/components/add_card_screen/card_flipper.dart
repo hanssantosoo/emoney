@@ -37,4 +37,15 @@ class _CardFlipperState extends State<CardFlipper>
         tween: Tween<double>(begin: 190, end: 180), weight: 1),
   ]);
 
-  
+   TweenSequence<double> rightToLeft = TweenSequence(<TweenSequenceItem<double>>[
+    TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 0, end: 180), weight: 3),
+    TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 180, end: 170), weight: 2),
+    TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 170, end: 180), weight: 1),
+  ]);
+
+  @override
+  void initState() {
+    super.initState();
