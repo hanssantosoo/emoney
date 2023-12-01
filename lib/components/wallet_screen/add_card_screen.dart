@@ -68,3 +68,44 @@ class _AddCardScreenState extends State<AddCardScreen>
     currentCardBackSideImage =
         Image.asset('assets/images/card_flow_assets/$cardBrand-backside.png');
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    precacheImage(currentCardFrontSideImage.image, context);
+    precacheImage(currentCardBackSideImage.image, context);
+  }
+
+  @override
+  void dispose() {
+    _cardNumberInputController.dispose();
+    _expiryDateInputController.dispose();
+    _cvvInputController.dispose();
+    _cardHolderInputController.dispose();
+    cardSwitcher.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget cardFrontSide = Stack(
+      children: [
+        AnimatedSwitcher(
+          duration: Duration(milliseconds: 900),
+          reverseDuration: Duration(seconds: 210),
+          switchInCurve: Curves.linear,
+          child: currentCardFrontSideImage,
+          transitionBuilder: (Widget child, sides) {
+            return AnimatedBuilder(
+              animation: sides,
+              child: child,
+              builder: (BuildContext context, Widget? child) {
+                return ClipPath(
+                  clipper: CardClipperLeftToRight2(sideValue: sides.value),
+                  child: child,
+                );
+              },
+            );
+          },
+        ),
