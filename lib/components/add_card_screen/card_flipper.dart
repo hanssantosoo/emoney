@@ -17,3 +17,24 @@ class CardFlipper extends StatefulWidget {
   @override
   _CardFlipperState createState() => _CardFlipperState();
 }
+
+class _CardFlipperState extends State<CardFlipper>
+    with SingleTickerProviderStateMixin {
+  late AnimationController cardFlippingController;
+
+  late Animation<double> flipAnimation;
+  Widget? displayedCard;
+  bool isFacingUp = true;
+  double skewFactor = 0;
+  double defaultSkew = 0;
+
+  TweenSequence<double> leftToRight = TweenSequence(<TweenSequenceItem<double>>[
+    TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 360, end: 180), weight: 3),
+    TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 180, end: 190), weight: 2),
+    TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 190, end: 180), weight: 1),
+  ]);
+
+  
