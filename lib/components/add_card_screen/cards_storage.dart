@@ -21,3 +21,28 @@ class CardsStorage {
 
     return _availableCards[Random().nextInt(_availableCards.length)];
   }
+
+  Future<Map<String, dynamic>> readAvailableCards() async {
+    try {
+      final file = await _cardsFile;
+
+      final contents = await file.readAsString();
+
+      return jsonDecode(contents);
+    } catch (e) {
+      return {"localDBError": "unable to parse data"};
+    }
+  }
+
+  void updateAvailableCards(Map<String, dynamic> cardData) async {
+    final file = await _cardsFile;
+
+    final contents = await file.readAsString();
+
+    var decodedFile = jsonDecode(contents);
+    decodedFile['availableCards'].add(cardData);
+
+    file
+        .writeAsString(jsonEncode(decodedFile))
+        .then((value) => print("new card added"));
+  }
