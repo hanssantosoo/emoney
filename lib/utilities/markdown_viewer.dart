@@ -9,3 +9,12 @@ import 'package:http/http.dart' as http;
 import 'package:markdown_widget/markdown_widget.dart';
 
 import 'package:emoney/utilities/display_error_alert.dart';
+
+class HadWinMarkdownViewer extends StatefulWidget {
+  final String screenName;
+  final String urlRequested;
+  const HadWinMarkdownViewer(
+      {Key? key, required this.screenName, required this.urlRequested});
+  @override
+  HadWinMarkdownViewerState createState() => HadWinMarkdownViewerState();
+}
