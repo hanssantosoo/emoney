@@ -46,3 +46,27 @@ class CardsStorage {
         .writeAsString(jsonEncode(decodedFile))
         .then((value) => print("new card added"));
   }
+
+   Future<bool> deleteCard(String cardNumber) async {
+    try {
+      final file = await _cardsFile;
+
+      final contents = await file.readAsString();
+
+      var decodedFile = jsonDecode(contents)['availableCards'];
+
+      List<dynamic> newCardsSet = decodedFile
+          .where((card) =>
+              card['cardNumber'].replaceAll(' ', '') !=
+              cardNumber.replaceAll(' ', ''))
+          .toList();
+      return file
+          .writeAsString(jsonEncode({'availableCards': newCardsSet}))
+          .then((value) {
+        //* card has been deleted
+        return true;
+      });
+    } catch (e) {
+      return false;
+    }
+  }
