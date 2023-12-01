@@ -1,3 +1,4 @@
+// page slide transition effect
 import 'package:flutter/material.dart';
 
 class SlideRightRoute extends PageRouteBuilder {
@@ -16,7 +17,7 @@ class SlideRightRoute extends PageRouteBuilder {
             Animation<double> secondaryAnimation,
             Widget child,
           ) =>
-         SlideTransition(
+              SlideTransition(
             textDirection: TextDirection.rtl,
             position: Tween<Offset>(
               begin: const Offset(-1, 0),
