@@ -139,3 +139,15 @@ class _CardFlipperState extends State<CardFlipper>
     } else if (!isFacingUp && skewFactor == 0) {
       displayedCard = widget.backSide;
     }
+ return Transform(
+      transform: Matrix4.identity()
+        ..setEntry(3, 2, defaultSkew)
+        ..rotateY(skewFactor / 180 * pi),
+      alignment: Alignment.center,
+      child: displayedCard,
+    );
+
+  }
+
+
+}
