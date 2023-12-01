@@ -158,3 +158,33 @@ class LoginFormComponentState extends State<LoginFormComponent> {
       ),
     );
   }
+
+  void _validateLoginDetails() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    if (_formKey.currentState!.validate()) {
+      if (errorMessage1 != "" || errorMessage2 != "") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please provide all required details'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } else {
+        // _formKey.currentState!.reset();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            // onVisible: tryLoggingIn,
+            content: Text('Processing...'),
+            backgroundColor: Color.fromARGB(255, 56, 0, 167)));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(
+                content: Text("Login Successful"),
+                backgroundColor: Color.fromARGB(255, 212, 0, 250)))
+            .closed
+            .then((value) => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => TabbedLayoutComponent()),
+                (route) => false));
+      }
+    }
+  }
+}
