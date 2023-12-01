@@ -124,3 +124,30 @@ String formatTime2(int hrs, int mins) {
 
   return "$newHrs:$minutesAsString $midDayStatus";
 }
+String formatTime3(String date) {
+  DateTime someDate = DateTime.parse(date);
+  int hrs = someDate.hour;
+  dynamic mins = someDate.minute;
+  int newHrs = 0;
+  String midDayStatus = '';
+
+  if (hrs > 12 && hrs < 24) {
+    midDayStatus = 'PM';
+    newHrs = hrs - 12;
+  } else if (hrs == 12 && mins > 0) {
+    midDayStatus = 'PM';
+    newHrs = 12;
+  } else if (hrs < 12) {
+    midDayStatus = 'AM';
+    newHrs = hrs;
+  } else if (hrs == 24) {
+    midDayStatus = 'AM';
+    newHrs = 00;
+  }
+
+  if (mins<=9) {
+    mins="0$mins";
+  }
+
+  return "$newHrs:$mins $midDayStatus";
+}
