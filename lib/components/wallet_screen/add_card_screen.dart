@@ -718,3 +718,41 @@ class _AddCardScreenState extends State<AddCardScreen>
       lastInputLength = 0;
       cursorPos = 0;
     }
+
+    _expiryDateInputController.text = formattedDate;
+    _expiryDateInputController.selection = TextSelection(
+        baseOffset: cursorPos + lastInputLength,
+        extentOffset: cursorPos + lastInputLength);
+
+    return formattedDate;
+  }
+}
+
+class CardClipperLeftToRight2 extends CustomClipper<Path> {
+  double sideValue;
+  CardClipperLeftToRight2({required this.sideValue});
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    if (0.3 + sideValue < 1) {
+      path.lineTo(size.width * (0.3 + sideValue), 0);
+      path.lineTo(size.width * sideValue, size.height);
+      path.lineTo(0, size.height);
+    } else {
+      path.lineTo(size.width, 0);
+      path.lineTo(size.width, size.height * sideValue);
+      path.lineTo(size.width * sideValue, size.height);
+      path.lineTo(0, size.height);
+    }
+
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
+}
