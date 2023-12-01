@@ -32,3 +32,16 @@ for (MapEntry cp in cardRegexPatterns.entries) {
 
   return detectedBrand;
 }
+String identifyCardShorter(String cardNumber) {
+  cardNumber = cardNumber.replaceAll('-', '');
+  cardNumber = cardNumber.replaceAll(' ', '');
+  String detectedBrand = 'default';
+  Map<String, dynamic> cardRegexPatterns = {
+    'american-express': r'^3[47][0-9]{1}',
+    'discover':
+        r'^65[4-9]|64[4-9]|6011|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$',
+    'maestro': r'^(5018|5020|5038|5893|6304|6759|6761|6762|6763)',
+    'mastercard':
+        r'^(5[1-5][0-9]{4}|2(22[1-9][0-9]{2}|2[3-9][0-9]{3}|[3-6][0-9]{4}|7[0-1][0-9]{3}|720[0-9]{2}))',
+    'visa': r'^4[0-9]{3}',
+  };
