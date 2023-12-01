@@ -83,3 +83,20 @@ class CardsStorage {
       return false;
     }
   }
+
+   Future<bool> resetLocallySavedCards() async {
+    try {
+      final file = await _cardsFile;
+
+      return file
+          .writeAsString(jsonEncode({"availableCards": []}))
+          .then((value) {
+        //* RESET CARDS FILE SUCCESSFUL
+        return true;
+      });
+    } catch (e) {
+      //* RESET CARDS FILE UNSUCCESSFUL
+      return false;
+    }
+  }
+}
