@@ -55,6 +55,7 @@ void showErrorAlert(BuildContext context, Map<String, dynamic> error) {
             ],
           ));
 }
+
 class _CommonError {
   BuildContext context;
   Map<String, dynamic> error;
@@ -73,6 +74,7 @@ class _CommonError {
     Navigator.of(context).pop();
   }
 }
+
 class _LocalError {
   BuildContext context;
   Map<String, dynamic> error;
@@ -110,6 +112,7 @@ class _LocalError {
     Navigator.of(context).pop();
   }
 }
+
 class _HazardousError {
   BuildContext context;
   Map<String, dynamic> error;
