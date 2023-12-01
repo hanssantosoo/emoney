@@ -221,25 +221,20 @@ String _formatDay(int day) {
   return "$day$suffix";
 }
 
-//? FUNCTION FOR RETRIEVING ORDINALS
-String _formatDay(int day) {
-  String suffix = '';
-  if (day >= 11 && day<=13) {
-    suffix = 'th';
-  } else {
-    switch (day % 10) {
-      case 1:
-        suffix = 'st';
-        break;
-      case 2:
-        suffix = 'nd';
-        break;
-      case 3:
-        suffix = 'rd';
-        break;
-      default:
-        suffix = 'th';
-    }
-  }
-  return "$day$suffix";
+String _findMonthInWords(int month) {
+  List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+  return months[month - 1];
 }
