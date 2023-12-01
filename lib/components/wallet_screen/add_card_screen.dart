@@ -38,3 +38,33 @@ class _AddCardScreenState extends State<AddCardScreen>
     'cvv': '',
     'cardHolder': ''
   };
+
+  int _currentStep = 0;
+  String cardBrand = "default";
+  Image currentCardFrontSideImage = Image.asset(
+    'assets/images/card_flow_assets/default-frontside.png',
+    key: ValueKey(0),
+  );
+  late Image currentCardBackSideImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _cardInputDataController = ItemScrollController();
+    _cardNumberInputController = TextEditingController(text: "");
+    _expiryDateInputController = TextEditingController(text: "");
+    _cvvInputController = TextEditingController(text: "");
+    _cardHolderInputController = TextEditingController(text: "");
+
+    cardFlipper = CardFlippingController();
+
+    cardDetailsFocusNodes = FocusScopeNode();
+    cardInputFields = getCardInputFields();
+    cardSwitcher =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 900));
+
+    sides = Tween<double>(begin: 0.0, end: 1.0).animate(cardSwitcher);
+
+    currentCardBackSideImage =
+        Image.asset('assets/images/card_flow_assets/$cardBrand-backside.png');
+  }
