@@ -79,3 +79,17 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
         title = "Successful!";
       });
     });
+
+       cardProcessingAnimationController.addListener(listenForExit);
+  }
+
+  void listenForExit() {
+    if (cardProcessingAnimationController.isCompleted) {
+      Future.delayed(Duration(seconds: 2, milliseconds: 500), (() {
+        int count = 0;
+        if (mounted) {
+          Navigator.of(context).popUntil((_) => count++ >= 2);
+        }
+      }));
+    }
+  }
