@@ -73,3 +73,40 @@ class _CommonError {
     Navigator.of(context).pop();
   }
 }
+class _LocalError {
+  BuildContext context;
+  Map<String, dynamic> error;
+  _LocalError(this.context, this.error);
+
+  List<Widget> get errorDescription => <Widget>[
+        error.keys.first == 'internetConnectionError'
+            ? ColorFiltered(
+                colorFilter:
+                    ColorFilter.mode(Color(0xFF0070BA), BlendMode.color),
+                child: ColorFiltered(
+                  colorFilter:
+                      ColorFilter.mode(Colors.grey, BlendMode.saturation),
+                  child: Image.asset(
+                    'assets/images/notification_assets/no-wifi.png',
+                    height: 48,
+                    width: 48,
+                  ),
+                ))
+            : Image.asset(
+                'assets/images/notification_assets/file-error.png',
+                height: 48,
+                width: 48,
+              ),
+        Padding(
+          padding: EdgeInsets.only(top: 24, bottom: 12),
+          child: Text(
+            error[error.keys.first],
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ];
+
+  void onClose() {
+    Navigator.of(context).pop();
+  }
+}
