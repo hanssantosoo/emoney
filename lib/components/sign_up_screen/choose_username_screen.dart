@@ -127,7 +127,7 @@ class _ChooseUsernameState extends State<ChooseUsername> {
               margin: const EdgeInsets.all(5.0),
               decoration: BoxDecoration(
                 gradient: RadialGradient(
-                    colors: [Color(0xff0070BA), Color(0xff1546A0)],
+                    colors: [Color.fromARGB(255, 78, 2, 176), Color.fromARGB(255, 94, 6, 152)],
                     radius: 8.4,
                     center: Alignment(-0.24, -0.36)),
                 borderRadius: BorderRadius.circular(20),
@@ -153,7 +153,7 @@ class _ChooseUsernameState extends State<ChooseUsername> {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(
             content: Text("Successfully created account"),
-            backgroundColor: Colors.green))
+            backgroundColor: Color.fromARGB(255, 182, 25, 203)))
         .closed
         .then((value) => Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => TabbedLayoutComponent()),
