@@ -37,3 +37,16 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
       }
     }
   }
+
+  @override
+  void initState() {
+    super.initState();
+
+    cardProcessingAnimationController = AnimationController(
+      vsync: this,
+    );
+    cardProcessingAnimationController.addListener(toggleMessageVisibility);
+    processStatusAnimation = Container(
+      color: Colors.transparent,
+      width: 300,
+    );
