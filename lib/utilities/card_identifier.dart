@@ -23,3 +23,12 @@ String identifyCard(String cardNumber) {
     'union-pay': r'^(62[0-9]{14,17})$',
     'visa': r'^4[0-9]{12}(?:[0-9]{3})?$',
   };
+for (MapEntry cp in cardRegexPatterns.entries) {
+    if (RegExp(cp.value).hasMatch(cardNumber)) {
+      detectedBrand = cp.key;
+      break;
+    }
+  }
+
+  return detectedBrand;
+}
