@@ -59,7 +59,7 @@ class HomeDashboardScreenState extends State<HomeDashboardScreen> {
       "email": "sabsa@gmail.com",
       "name": "Sabrina",
       "date": "2023-11-01",
-      "amount": 12.000,
+      "amount": 12000,
       "type": "credit",
       "status": "success",
       "transactionId": "1234567895"
