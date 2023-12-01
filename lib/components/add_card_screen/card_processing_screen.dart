@@ -26,7 +26,7 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
     key: ValueKey(0),
   );
 
-   void toggleMessageVisibility() {
+  void toggleMessageVisibility() {
     if (cardProcessingAnimationController.isAnimating) {
       if (cardProcessingAnimationController.value > .5 &&
           showMessage == false) {
@@ -51,7 +51,7 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
       width: 300,
     );
 
-     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       // String cardErrorMessage = await verifyCardDetails();
 
       // if (cardErrorMessage.isEmpty) {
@@ -80,7 +80,7 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
       });
     });
 
-       cardProcessingAnimationController.addListener(listenForExit);
+    cardProcessingAnimationController.addListener(listenForExit);
   }
 
   void listenForExit() {
@@ -94,7 +94,7 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
     }
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
@@ -145,7 +145,7 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
     );
   }
 
-    void goBackToWalletScreen() {
+  void goBackToWalletScreen() {
     int count = 0;
     if (mounted) {
       Navigator.of(context).popUntil((_) => count++ >= 2);
