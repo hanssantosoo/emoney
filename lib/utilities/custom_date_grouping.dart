@@ -104,3 +104,23 @@ String dateFormatter(String dateGroup, DateTime transactionDate) {
   }
   return formattedDate;
 }
+String formatTime2(int hrs, int mins) {
+  int newHrs = 0;
+  String midDayStatus = '';
+  String minutesAsString=mins<10?"0$mins":"$mins";
+  if (hrs > 12 && hrs < 24) {
+    midDayStatus = 'PM';
+    newHrs = hrs - 12;
+  } else if (hrs == 12 && mins > 0) {
+    midDayStatus = 'PM';
+    newHrs = 12;
+  } else if (hrs < 12) {
+    midDayStatus = 'AM';
+    newHrs = hrs;
+  } else if (hrs == 24) {
+    midDayStatus = 'AM';
+    newHrs = 00;
+  }
+
+  return "$newHrs:$minutesAsString $midDayStatus";
+}
