@@ -89,3 +89,45 @@ class _CardFlipperState extends State<CardFlipper>
     });
     widget.cardFlippingController?.cardState = this;
   }
+
+   void setImage() {
+    if (isFacingUp) {
+      if (skewFactor >= 270) {
+        setState(() {
+          displayedCard = widget.frontSide;
+
+        });
+      } else {
+        setState(() {
+          displayedCard = Transform(
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.000)
+              ..rotateY(180 / 180 * pi),
+            alignment: Alignment.center,
+            child: widget.backSide,
+          );
+
+        });
+      }
+    } else {
+      if (skewFactor <= 90) {
+        setState(() {
+          displayedCard = widget.backSide;
+
+        });
+      } else {
+        setState(() {
+          displayedCard = Transform(
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.000)
+              ..rotateY(180 / 180 * pi),
+            alignment: Alignment.center,
+            child: widget.frontSide,
+          );
+
+        });
+      }
+      
+    }
+   
+  }
