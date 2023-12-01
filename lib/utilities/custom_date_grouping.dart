@@ -73,3 +73,21 @@ int customGroupComparator(String group1, String group2) {
     r'\d{1} years ago',
     r'More than 5 years ago',
   ];
+for (var i = 0; i < dateGroups.length; i++) {
+    if (RegExp(dateGroups[i]).hasMatch(group1)) {
+      group1Match = i;
+    }
+    if (RegExp(dateGroups[i]).hasMatch(group2)) {
+      group2Match = i;
+    }
+  }
+  // check
+  if (group1Match == group2Match) {
+    comparison = group1.compareTo(group2);
+  } else if (group1Match < group2Match) {
+    comparison = -1;
+  } else {
+    comparison = 1;
+  }
+  return comparison;
+}
