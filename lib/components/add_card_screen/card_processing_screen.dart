@@ -50,3 +50,32 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
       color: Colors.transparent,
       width: 300,
     );
+
+     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      // String cardErrorMessage = await verifyCardDetails();
+
+      // if (cardErrorMessage.isEmpty) {
+      setState(() {
+        processStatusAnimation = Container(
+            color: Colors.transparent,
+            width: 300,
+            child: Lottie.network(
+                'https://assets2.lottiefiles.com/packages/lf20_uub9r8ta.json',
+                repeat: false,
+                controller: cardProcessingAnimationController,
+                onLoaded: (composition) {
+              cardProcessingAnimationController.duration = composition.duration;
+              cardProcessingAnimationController.forward();
+            }));
+        processStatusText = SizedBox(
+            height: 48,
+            key: ValueKey(1),
+            child: Text(
+              'card was added',
+              style:
+                  GoogleFonts.poppins(fontSize: 16, color: Color(0xff343a40)),
+              textAlign: TextAlign.center,
+            ));
+        title = "Successful!";
+      });
+    });
