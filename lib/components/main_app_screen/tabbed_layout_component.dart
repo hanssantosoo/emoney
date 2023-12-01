@@ -48,3 +48,110 @@ class _TabbedLayoutComponentState extends State<TabbedLayoutComponent> {
         key: alltrans,
       ),
     ];
+
+    return WillPopScope(
+      onWillPop: _onBackPress,
+      child: Scaffold(
+        backgroundColor: Color(0xfffefefe),
+        extendBodyBehindAppBar: true,
+        bottomNavigationBar: googleNavBar(),
+        body: screens.isEmpty ? Text("Loading...") : screens[_currentTab],
+      ),
+    );
+  }
+
+  Widget googleNavBar() {
+    return Container(
+      color: Color.fromARGB(255, 0, 0, 0),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.18, vertical: 1),
+        child: GNav(
+          haptic: false,
+          gap: 6,
+          activeColor: Color.fromARGB(255, 40, 4, 148),
+          iconSize: 24,
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+          duration: Duration(milliseconds: 300),
+          color: Color.fromARGB(255, 255, 255, 255),
+          tabs: [
+            GButton(
+              icon: FluentIcons.home_32_regular,
+              iconSize: 36,
+              text: 'Home',
+            ),
+            GButton(
+              icon: HadWinIcons.line_awesome_wallet_solid,
+              iconSize: 36,
+              text: 'Cards',
+            ),
+            GButton(
+              icon: FluentIcons.alert_32_regular,
+              iconActiveColor: Color.fromARGB(255, 40, 4, 148),
+              text: 'Activities',
+              leading: Stack(
+                children: [
+                  Icon(
+                    FluentIcons.alert_32_regular,
+                    color: _currentTab == 2
+                        ? Color.fromARGB(255, 40, 4, 148)
+                        : Color.fromARGB(255, 255, 255, 255),
+                    size: 36,
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: ClipOval(
+                      child: Container(
+                          color: Color(0xffffb3c1),
+                          width: 17,
+                          height: 17,
+                          child: Center(
+                            child: Text("3",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 9.6,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffc9184a),
+                                    backgroundColor: Color(0xffffb3c1))),
+                          )),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            // GButton(
+            //   icon: HadWinIcons.line_awesome_wallet_solid,
+            //   text: 'Wallet',
+            //   iconSize: 34,
+            // ),
+          ],
+          selectedIndex: _currentTab,
+          onTabChange: _onTabChange,
+        ),
+      ),
+    );
+  }
+
+  void _onTabChange(index) {
+    if (_currentTab == 1 || _currentTab == 2) {
+      FocusManager.instance.primaryFocus?.unfocus();
+    }
+
+    setState(() {
+      _currentTab = index;
+    });
+  }
+
+  Future<bool> _onBackPress() {
+    if (_currentTab == 0) {
+      return Future.value(true);
+    } else {
+      int lastTab =
+          Provider.of<TabNavigationProvider>(context, listen: false).lastTab;
+      Provider.of<TabNavigationProvider>(context, listen: false)
+          .removeLastTab();
+      setTab(lastTab);
+    }
+    return Future.value(false);
+  }
+}
