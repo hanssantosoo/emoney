@@ -305,4 +305,128 @@ class _AddCardScreenState extends State<AddCardScreen>
               ? completedAllStepsButton
               : goBackToPreviousStepButton,
     );
-    
+
+    return WillPopScope(
+        onWillPop: () => Future.value(false),
+        child: Scaffold(
+            backgroundColor: Colors.black,
+            appBar: MediaQuery.of(context).viewInsets.bottom == 0
+                ? AppBar(
+                    title: Text("Add New Card"),
+                    centerTitle: true,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    foregroundColor: Color.fromARGB(255, 255, 255, 255),
+                    leading: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: Icon(Icons.arrow_back)),
+                  )
+                : null,
+            body:
+                //  SingleChildScrollView(
+                //     reverse: true,
+                Container(
+                    height: MediaQuery.of(context).size.height,
+                    // width: double.infinity,
+                    width: MediaQuery.of(context).size.width,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                            bottom:
+                                MediaQuery.of(context).viewInsets.bottom == 0
+                                    ? null
+                                    : 0,
+                            child: Column(children: <Widget>[
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).viewInsets.bottom ==
+                                            0
+                                        ? 16
+                                        : 84,
+                              ),
+                              cardHoldingSpace,
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height > 700
+                                    ? 36
+                                    : 18,
+                              ),
+                              cardInputFieldsSpace,
+                              cardInputNavigationButtons
+                            ]))
+                      ],
+                    ))));
+  }
+
+  void _tryAddingCard() {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    Future.delayed(Duration(milliseconds: 200), (() => Navigator.pop(context)));
+  }
+
+  //? FUNCTION FOR MOVING TO NEXT STEP
+  void proceedToNextStep() {
+    int temporaryStepStore = _currentStep;
+    if (_currentStep < cardInputFields.length - 1) {
+      temporaryStepStore++;
+
+      if (temporaryStepStore == 2 || temporaryStepStore == 3) {
+        cardFlipper.flipCard().then((bool flipped) {
+          if (flipped) {
+            setState(() {
+              _currentStep = temporaryStepStore;
+            });
+            _cardInputDataController
+                .scrollTo(
+                    index: _currentStep,
+                    duration: Duration(microseconds: 1),
+                    curve: Curves.easeIn)
+                .whenComplete(() => cardDetailsFocusNodes.nextFocus());
+          }
+        });
+      } else {
+        setState(() {
+          _currentStep = temporaryStepStore;
+        });
+        _cardInputDataController
+            .scrollTo(
+                index: _currentStep,
+                duration: Duration(milliseconds: 400),
+                curve: Curves.easeIn)
+            .whenComplete(() => cardDetailsFocusNodes.nextFocus());
+      }
+    }
+  }
+
+//? FUNCTION FOR RETURNING TO PREVIOUS STEP
+  void backToPreviousStep() {
+    int temporaryStepStore = _currentStep;
+    if (_currentStep > 0) {
+      temporaryStepStore -= 1;
+
+      if (temporaryStepStore == 2 || temporaryStepStore == 1) {
+        cardFlipper.flipCard().then((bool flipped) {
+          if (flipped) {
+            setState(() {
+              _currentStep = temporaryStepStore;
+            });
+            _cardInputDataController
+                .scrollTo(
+                    index: _currentStep,
+                    duration: Duration(microseconds: 1),
+                    curve: Curves.easeIn)
+                .whenComplete(() => cardDetailsFocusNodes.previousFocus());
+          }
+        });
+      } else {
+        setState(() {
+          _currentStep = temporaryStepStore;
+        });
+        _cardInputDataController
+            .scrollTo(
+                index: _currentStep,
+                duration: Duration(milliseconds: 400),
+                curve: Curves.easeIn)
+            .whenComplete(() => cardDetailsFocusNodes.previousFocus());
+      }
