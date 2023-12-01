@@ -47,7 +47,7 @@ class CardsStorage {
         .then((value) => print("new card added"));
   }
 
-   Future<bool> deleteCard(String cardNumber) async {
+  Future<bool> deleteCard(String cardNumber) async {
     try {
       final file = await _cardsFile;
 
@@ -84,7 +84,7 @@ class CardsStorage {
     }
   }
 
-   Future<bool> resetLocallySavedCards() async {
+  Future<bool> resetLocallySavedCards() async {
     try {
       final file = await _cardsFile;
 
