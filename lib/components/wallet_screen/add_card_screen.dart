@@ -1,4 +1,4 @@
-'dart:math';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -430,3 +430,112 @@ class _AddCardScreenState extends State<AddCardScreen>
                 curve: Curves.easeIn)
             .whenComplete(() => cardDetailsFocusNodes.previousFocus());
       }
+    }
+  }
+
+//? FUNCTION FOR FORMATTING CARD NUMBER
+  String _formatCardNumber(String currentCardNumber) {
+    String formattedCardNumber = "";
+    if (cardBrand == 'american-express' ||
+        RegExp(r'^3[47]').hasMatch(currentCardNumber)) {
+      for (var i = 0; i < currentCardNumber.length; i++) {
+        formattedCardNumber += currentCardNumber[i];
+        if (i == 3 || i == 9) {
+          formattedCardNumber += ' ';
+        }
+      }
+    } else {
+      for (var i = 0; i < currentCardNumber.length; i++) {
+        formattedCardNumber += currentCardNumber[i];
+        if ((i + 1) % 4 == 0) {
+          formattedCardNumber += ' ';
+        }
+      }
+    }
+    return formattedCardNumber.trim();
+  }
+
+  Map<String, int> cardNumberMaxLengths = {
+    'american-express': 15,
+    'discover': 16,
+    'maestro': 16,
+    'mastercard': 16,
+    'visa': 16,
+  };
+
+  Map<String, Color> cardLabelColors = {
+    'american-express': Colors.transparent,
+    'discover': Color(0xffc9184a),
+    'maestro': Color(0xff90e0ff),
+    'mastercard': Color(0xff590d22),
+    'visa': Color(0xffe0aaff),
+    'default': Colors.white
+  };
+
+  List<Widget> getCardInputFields() {
+    TextStyle inputLabelStyle = TextStyle(color: Colors.grey.shade600);
+    return [
+      Wrap(
+        direction: Axis.vertical,
+        children: [
+          Text(
+            "CARD NUMBER",
+            style: inputLabelStyle,
+          ),
+          Container(
+              color: Colors.transparent,
+              width: 200,
+              child: TextField(
+                controller: _cardNumberInputController,
+                enableSuggestions: false,
+                showCursor: false,
+                autofocus: true,
+                autocorrect: false,
+                autofillHints: null,
+                onChanged: _onCardNumberChanged,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(19),
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                ],
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none),
+              ))
+        ],
+      ),
+      Wrap(
+        direction: Axis.vertical,
+        children: [
+          Text("EXPIRY DATE", style: inputLabelStyle),
+          Container(
+              color: Colors.transparent,
+              width: 100,
+              child: TextField(
+                controller: _expiryDateInputController,
+                showCursor: false,
+                enableSuggestions: false,
+                autocorrect: false,
+                autofillHints: null,
+                onChanged: _onExpiryDateChanged,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(5),
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]|\/'))
+                ],
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none),
+              ))
+        ],
+      ),
