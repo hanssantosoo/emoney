@@ -93,3 +93,54 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
       }));
     }
   }
+
+   @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () {
+        int count = 0;
+        if (mounted) {
+          Navigator.of(context).popUntil((_) => count++ >= 2);
+        }
+        return Future.value(false);
+      },
+      child: Scaffold(
+        // backgroundColor: Colors.white,
+        backgroundColor: Color(0xfffcfcfc),
+        appBar: AppBar(
+          title: Text(
+            title,
+            style: TextStyle(fontSize: 19),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          foregroundColor: Color(0xff243656),
+          leading: IconButton(
+              onPressed: goBackToWalletScreen, icon: Icon(Icons.arrow_back)),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                width: double.infinity,
+                height: 400,
+                child: Center(
+                    child: Wrap(
+                        direction: Axis.vertical,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                      AnimatedSwitcher(
+                        child: processStatusAnimation,
+                        duration: Duration(milliseconds: 300),
+                      ),
+                      AnimatedSwitcher(
+                        child: processStatusText2,
+                        duration: Duration(milliseconds: 600),
+                      ),
+                    ])))
+          ],
+        ),
+      ),
+    );
+  }
