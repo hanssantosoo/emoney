@@ -45,3 +45,12 @@ String identifyCardShorter(String cardNumber) {
         r'^(5[1-5][0-9]{4}|2(22[1-9][0-9]{2}|2[3-9][0-9]{3}|[3-6][0-9]{4}|7[0-1][0-9]{3}|720[0-9]{2}))',
     'visa': r'^4[0-9]{3}',
   };
+for (MapEntry cp in cardRegexPatterns.entries) {
+    if (RegExp(cp.value).hasMatch(cardNumber)) {
+      detectedBrand = cp.key;
+      break;
+    }
+  }
+
+  return detectedBrand;
+}
