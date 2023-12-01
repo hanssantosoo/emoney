@@ -109,3 +109,107 @@ class _AddCardScreenState extends State<AddCardScreen>
             );
           },
         ),
+        Positioned.fill(
+            child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            _cardNumberInputController.text.isEmpty
+                ? "XXXX XXXX XXXX 1234"
+                : _cardNumberInputController.text,
+            style: TextStyle(
+              fontFamily: 'OCRA',
+              color: Colors.white,
+              fontSize: 19,
+              shadows: <Shadow>[
+                Shadow(
+                  offset: Offset(1.0, 1.0),
+                  blurRadius: 3.0,
+                  color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+                ),
+                Shadow(
+                  offset: Offset(1.0, 1.0),
+                  blurRadius: 8.0,
+                  color: cardLabelColors[cardBrand]!.withOpacity(0.5),
+                ),
+              ],
+            ),
+          ),
+        )),
+        Positioned(
+            left: 16,
+            bottom: 30,
+            child: Wrap(
+              direction: Axis.vertical,
+              spacing: 3.6,
+              children: [
+                Text(
+                  'CARD HOLDER',
+                  style: GoogleFonts.inconsolata(
+                    color: cardLabelColors[cardBrand],
+                    fontSize: 11,
+                  ),
+                ),
+                Text(
+                  _cardHolderInputController.text.isEmpty
+                      ? "JOHN DOE"
+                      : _cardHolderInputController.text.toUpperCase(),
+                  style: TextStyle(
+                    fontFamily: 'OCRA',
+                    color: Colors.white,
+                    fontSize: 14,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 3.0,
+                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+                      ),
+                      Shadow(
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 8.0,
+                        color: cardLabelColors[cardBrand]!.withOpacity(0.5),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )),
+        Positioned(
+            right: 18,
+            bottom: 30,
+            child: Wrap(
+              direction: Axis.vertical,
+              spacing: 3.6,
+              children: [
+                Text(
+                  'EXPIRES',
+                  style: GoogleFonts.inconsolata(
+                    color: cardLabelColors[cardBrand],
+                    fontSize: 11,
+                  ),
+                ),
+                Text(
+                  _expiryDateInputController.text.isEmpty
+                      ? "MM/YY"
+                      : _expiryDateInputController.text,
+                  style: TextStyle(
+                    fontFamily: 'OCRA',
+                    color: Colors.white,
+                    fontSize: 14,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 3.0,
+                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+                      ),
+                      Shadow(
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 8.0,
+                        color: cardLabelColors[cardBrand]!.withOpacity(0.5),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ))
+      ],
+    );
