@@ -25,3 +25,15 @@ class _CardProcessingScreenState extends State<CardProcessingScreen>
     height: 48,
     key: ValueKey(0),
   );
+
+   void toggleMessageVisibility() {
+    if (cardProcessingAnimationController.isAnimating) {
+      if (cardProcessingAnimationController.value > .5 &&
+          showMessage == false) {
+        setState(() {
+          showMessage = true;
+          processStatusText2 = processStatusText;
+        });
+      }
+    }
+  }
