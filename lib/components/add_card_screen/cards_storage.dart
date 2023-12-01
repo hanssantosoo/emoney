@@ -70,3 +70,16 @@ class CardsStorage {
       return false;
     }
   }
+
+  Future<bool> deleteFile() async {
+    try {
+      final file = await _cardsFile;
+
+      await file.delete();
+      //* THE LOCAL CARDS FILE HAS BEEN DELETED
+      return true;
+    } catch (e) {
+      //* THE LOCAL CARDS FILE HAS NOT BEEN DELETED
+      return false;
+    }
+  }
