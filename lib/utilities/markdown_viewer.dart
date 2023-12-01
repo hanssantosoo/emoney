@@ -119,3 +119,15 @@ class HadWinMarkdownViewerState extends State<HadWinMarkdownViewer> {
           )
         ]));
   }
+  Future<String> getTextData(String url) async {
+    var response;
+    try {
+      response = await http.get(Uri.parse(url));
+    } on SocketException {
+      showErrorAlert(
+          context, {'internetConnectionError': 'no internet connection'});
+    } catch (e) {
+      showErrorAlert(context, {'error': "something went wrong"});
+    }
+    return response.body;
+  }
