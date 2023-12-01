@@ -131,3 +131,11 @@ class _CardFlipperState extends State<CardFlipper>
     }
    
   }
+
+   @override
+  Widget build(BuildContext context) {
+    if (isFacingUp && skewFactor == 0) {
+      displayedCard = widget.frontSide;
+    } else if (!isFacingUp && skewFactor == 0) {
+      displayedCard = widget.backSide;
+    }
