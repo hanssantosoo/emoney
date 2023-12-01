@@ -1,4 +1,4 @@
-import 'dart:math';
+'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -213,3 +213,32 @@ class _AddCardScreenState extends State<AddCardScreen>
             ))
       ],
     );
+
+    Widget cardBackSide = Stack(
+      children: [
+        currentCardBackSideImage,
+        Positioned(
+            right: 27,
+            top: (MediaQuery.of(context).size.width - 60) * .22,
+            child: Text(
+              _cvvInputController.text.isEmpty
+                  ? "123"
+                  : _cvvInputController.text,
+              style: GoogleFonts.inconsolata(
+                color: Colors.black,
+                fontSize: 18,
+              ),
+            ))
+      ],
+    );
+
+    Widget cardHoldingSpace = Container(
+        // width: double.infinity,
+        width: MediaQuery.of(context).size.width,
+        height: 9 * MediaQuery.of(context).size.width / 16,
+        padding: EdgeInsets.symmetric(horizontal: 30),
+        child: CardFlipper(
+            cardFlippingController: cardFlipper,
+            transitionDuration: Duration(milliseconds: 960),
+            frontSide: cardFrontSide,
+            backSide: cardBackSide));
