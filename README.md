@@ -14,3 +14,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+1.Rizky Sugiharto (535220113)
+2.Ridhwan Ardiyansyah (535220114)
+3.Ivan Makmur (535220122)
+4.Hans Santoso (535220129)
+5.Sabrina Phalosa Phai (535220131)
+6.Lekrey Jerel Jacob Laipiopa (535220134)
